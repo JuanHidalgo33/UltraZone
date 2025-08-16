@@ -1,22 +1,9 @@
-<<<<<<< HEAD
-body{
-=======
 body {
->>>>>>> bec7ecbf515f5dfcc503d64248c142264c477d02
     padding: 0;
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-<<<<<<< HEAD
-header{
-    width: 100%;
-    background-color: rgb(195, 195, 195);
-    height: 25px;
-}
-
-.top-bar{
-=======
 header {
     width: 100%;
     background-color: #c2c2c2;
@@ -32,14 +19,10 @@ a:hover {
 }
 
 .top-bar {
->>>>>>> bec7ecbf515f5dfcc503d64248c142264c477d02
     height: 100%;
     align-items: center;
     justify-content: center;
     display: flex;
-<<<<<<< HEAD
-    padding: 0;
-=======
     padding: 8px;
 }
 
@@ -183,5 +166,4 @@ a:hover {
 }
 li{
     list-style: none;
->>>>>>> bec7ecbf515f5dfcc503d64248c142264c477d02
 }
