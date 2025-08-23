@@ -62,7 +62,7 @@ a:hover {
 .main-header {
     background-color: #111;
     display: flex;
-    border-bottom: 2px solid #ff6600;
+    border-bottom: 2px solid #8B008b;
 }
 
 .header-item {
@@ -72,7 +72,7 @@ a:hover {
 }
 
 .logo {
-    color: #ff6600;
+    color: #8B008b;
     margin: 0;
     font-size: 15px;
 }
@@ -103,11 +103,11 @@ a:hover {
 }
 
 .text-search-input:focus {
-    border-color: #ff6600; 
+    border-color: #8B008b; 
 }
 
 .search-button {
-    background-color: #ff6600;
+    background-color: #8B008b;
     border: none;
     padding: 8px 12px;
     border-radius: 0 4px 4px 0;
@@ -120,7 +120,7 @@ a:hover {
 }
 
 .search-button:hover {
-    background-color: #ac4500;
+    background-color: #420042;
 }
 
 .header-actions{
@@ -137,7 +137,7 @@ a:hover {
 }
 
 .header-actions i:hover {
-    color: #ff6600;
+    color: #8B008b;
 }
 
 .dropdow-account {
@@ -152,7 +152,7 @@ a:hover {
 }
 
 .badge {
-    background-color: #ff6600;
+    background-color: #8B008b;
     color: white;
     font-size: 12px;
     padding: 2px 5px;
@@ -161,9 +161,25 @@ a:hover {
     transform: translate(-5px, -5px);
 }
 
+.header-nav{
+    display: flex;
+    justify-content: center;
+}
+
 .nav-menu{
     display: inline;
 }
+
 li{
     list-style: none;
+}
+
+.nav-list{
+    justify-content: center;
+    display: flex;
+}
+
+.nav-item{
+    display: inline-block;
+    padding: 0px 80px;
 }
