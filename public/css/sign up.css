@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #3d4045 0%, #420a38 100%);
+    font-family: Inter, Roboto, "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
+}
+
+/* CONTENEDOR PRINCIPAL DEL FORMULARIO */
+.register-container {
+    margin: 15px 0 15px 0;
+    background: #111;
+    width: 340px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    color: #ffffff;
+    text-align: left;
+}
+
+/* TÍTULO */
+.register-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* LABELS */
+.register-container label {
+    display: block;
+    color: #ffffff;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+/* CAMPOS DE TEXTO */
+.register-container input[type="text"],
+.register-container input[type="email"],
+.register-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #2c313a;
+    color: #fff;
+    font-size: 14px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    outline: none;
+    transition: background 0.2s;
+    box-sizing: border-box;
+}
+
+.register-container input[type="text"]:focus,
+.register-container input[type="email"]:focus,
+.register-container input[type="password"]:focus {
+    background: #383d46;
+}
+
+/* CHECKBOX: RECORDAR Y TÉRMINOS */
+.remember-me,
+.row {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+    color: #cccccc;
+    font-size: 13px;
+}
+
+.remember-me input[type="checkbox"],
+.row input[type="checkbox"] {
+    margin-right: 10px;
+    accent-color: #8B008B;
+    cursor: pointer;
+}
+
+/* BOTÓN DE ENVÍO */
+.submit-button button,
+.register-container button[type="submit"] {
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    background: #8B008B;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-button button:hover,
+.register-container button[type="submit"]:hover {
+    background: #2563eb;
+}
+
+/* ENLACE A LOGIN */
+.register-container p {
+    text-align: center;
+    font-size: 13px;
+    margin-top: 20px;
+    color: #cccccc;
+}
+
+.register-container p a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.register-container p a:hover {
+    text-decoration: underline;
+}
+
+/* RESPONSIVE */
+@media (max-width: 420px) {
+    .register-container {
+        width: 90%;
+        padding: 20px;
+    }
+}

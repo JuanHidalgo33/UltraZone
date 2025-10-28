@@ -1,0 +1,98 @@
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, #3d4045 0%, #420a38 100%);
+}
+
+.login-container {
+    background: #111;
+    width: 300px;
+    height: auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}
+
+.login-container label {
+    color: #ffffff;
+    font-size: 15px;
+}
+
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #2c313a;
+    color: #fff;
+    font-size: 14px;
+    margin-bottom: 30px;
+    margin-top: 5px;
+    outline: none;
+    transition: background 0.2s;
+    box-sizing: border-box;
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    background: #2c313a;
+}
+
+.submit-button button {
+    width: 100%;
+    margin-top: 50px;
+    padding: 10px;
+    background: #8B008b;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.submit-button button:hover {
+    background: #2563eb;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    padding: 10px 0 10px 0;
+}
+
+.remember-me input[type="checkbox"] {
+    margin-right: 10px;
+    margin-left: 0;
+    border: none;
+}   
+
+.forgot-password {
+    display: flex;
+    align-items: center;
+    padding: 0 0 10px 0;
+    margin-top: -25px
+}
+
+.forgot-password a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.register-link{
+    display: flex;
+    align-items: center;
+    padding: 10px 0 10px 0;
+    color: #ffffff;
+}
+
+.register-link a {
+    color: #ffffff;
+    text-decoration: none;
+}
+

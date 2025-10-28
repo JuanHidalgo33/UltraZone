@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Mi cuenta - Perfil</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/myaccount.css">
+</head>
+<body>
+    <header>
+        <h1>Mi cuenta</h1>
+        <nav>
+            <a href="#">Inicio</a> › <a href="#">Cuenta</a> › Perfil
+        </nav>
+    </header>
+
+    <main>
+        <!-- Resumen de perfil -->
+        <section aria-labelledby="perfil-titulo">
+            <h2 id="perfil-titulo">Perfil</h2>
+            <figure>
+                <img src="avatar-placeholder.png" alt="Foto de perfil" width="128" height="128">
+                <figcaption>Foto de perfil</figcaption>
+            </figure>
+
+            <dl>
+                <dt>Nombre completo</dt>
+                <dd>Juan Pérez</dd>
+
+                <dt>Nombre de usuario</dt>
+                <dd>juanp</dd>
+
+                <dt>Correo electrónico</dt>
+                <dd>juan.perez@example.com</dd>
+
+                <dt>Teléfono</dt>
+                <dd>+34 600 123 456</dd>
+
+                <dt>Fecha de nacimiento</dt>
+                <dd>01/01/1990</dd>
+
+                <dt>Género</dt>
+                <dd>Masculino</dd>
+            </dl>
+
+            <p>
+                <a href="#">Editar perfil</a>
+                <span> | </span>
+                <a href="#">Subir/Actualizar foto</a>
+            </p>
+        </section>
+
+        <!-- Dirección -->
+        <section aria-labelledby="contacto-titulo">
+            <h2 id="contacto-titulo">Contacto y dirección</h2>
+            <dl>
+                <dt>Dirección</dt>
+                <dd>Calle Falsa 123, 3ºA</dd>
+
+                <dt>Ciudad</dt>
+                <dd>Madrid</dd>
+
+                <dt>Provincia / Estado</dt>
+                <dd>Comunidad de Madrid</dd>
+
+                <dt>Código postal</dt>
+                <dd>28000</dd>
+
+                <dt>País</dt>
+                <dd>España</dd>
+            </dl>
+            <p><a href="#">Editar dirección</a></p>
+        </section>
+
+        <!-- Información de la cuenta -->
+        <section aria-labelledby="cuenta-titulo">
+            <h2 id="cuenta-titulo">Información de la cuenta</h2>
+            <dl>
+                <dt>ID de usuario</dt>
+                <dd>123456</dd>
+
+                <dt>Fecha de creación</dt>
+                <dd>15/05/2020</dd>
+
+                <dt>Último acceso</dt>
+                <dd>16/10/2025 09:24</dd>
+
+                <dt>Estado de la cuenta</dt>
+                <dd>Activa</dd>
+            </dl>
+
+            <p>
+                <a href="#">Cambiar contraseña</a>
+                <span> | </span>
+                <a href="#">Cerrar sesión en otros dispositivos</a>
+            </p>
+        </section>
+
+        <!-- Suscripción y facturación -->
+        <section aria-labelledby="facturacion-titulo">
+            <h2 id="facturacion-titulo">Suscripción y facturación</h2>
+
+            <dl>
+                <dt>Plan</dt>
+                <dd>Premium mensual</dd>
+
+                <dt>Estado de la suscripción</dt>
+                <dd>Activa — Renovación: 01/11/2025</dd>
+
+                <dt>Método de pago</dt>
+                <dd>Tarjeta Visa terminada en 4242</dd>
+            </dl>
+
+            <table>
+                <caption>Últimas facturas</caption>
+                <thead>
+                    <tr>
+                        <th>Fecha</th>
+                        <th>ID factura</th>
+                        <th>Importe</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>01/10/2025</td>
+                        <td>INV-20251001</td>
+                        <td>€9.99</td>
+                        <td>Pagada</td>
+                    </tr>
+                    <tr>
+                        <td>01/09/2025</td>
+                        <td>INV-20250901</td>
+                        <td>€9.99</td>
+                        <td>Pagada</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <p><a href="#">Administrar facturación</a></p>
+        </section>
+
+        <!-- Seguridad -->
+        <section aria-labelledby="seguridad-titulo">
+            <h2 id="seguridad-titulo">Seguridad</h2>
+            <dl>
+                <dt>Autenticación de dos factores (2FA)</dt>
+                <dd>Activada (App de autenticación)</dd>
+
+                <dt>Última contraseña cambiada</dt>
+                <dd>02/06/2025</dd>
+
+                <dt>Sesiones activas</dt>
+                <dd>1 sesión (Esta)</dd>
+            </dl>
+
+            <p>
+                <a href="#">Configurar 2FA</a>
+                <span> | </span>
+                <a href="#">Revisar sesiones</a>
+            </p>
+        </section>
+
+        <!-- Preferencias -->
+        <section aria-labelledby="preferencias-titulo">
+            <h2 id="preferencias-titulo">Preferencias</h2>
+            <dl>
+                <dt>Idioma</dt>
+                <dd>Español</dd>
+
+                <dt>Zona horaria</dt>
+                <dd>Europa/Madrid</dd>
+
+                <dt>Notificaciones</dt>
+                <dd>Email: activadas · SMS: desactivadas · Push: activadas</dd>
+            </dl>
+
+            <p><a href="#">Editar preferencias</a></p>
+        </section>
+
+        <!-- Cuentas vinculadas -->
+        <section aria-labelledby="vinculadas-titulo">
+            <h2 id="vinculadas-titulo">Cuentas vinculadas</h2>
+            <ul>
+                <li>Google — vinculado</li>
+                <li>Facebook — no vinculado</li>
+                <li>Apple — vinculado</li>
+            </ul>
+            <p><a href="#">Vincular / Desvincular cuentas</a></p>
+        </section>
+
+        <!-- Acciones críticas -->
+        <section aria-labelledby="acciones-titulo">
+            <h2 id="acciones-titulo">Acciones</h2>
+            <ul>
+                <li><a href="#">Descargar datos personales</a></li>
+                <li><a href="#">Eliminar cuenta (permanente)</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>Última actualización del perfil: 16/10/2025</p>
+    </footer>
+</body>
+</html>

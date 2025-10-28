@@ -2,11 +2,12 @@ body {
     padding: 0;
     margin: 0;
     font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #e7e7e7dd;
 }
 
 header {
     width: 100%;
-    background-color: #dedede;
+    background-color: #e7e7e7dd;
 }
 
 a {
@@ -160,6 +161,14 @@ a:hover {
     background-color: #111;
     border: 1px solid #ddd;
     border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+}
+
+.dropdown-account-menu li{
+    gap: 50px;
+    padding: 10px;
+    margin: 10px;
 }
 
 .dropdown-account-menu li a{
@@ -167,8 +176,14 @@ a:hover {
     color: white;
 }
 
+.dropdown-account-menu li a:hover{
+    text-decoration: none;
+    color: #8B008b;
+}
+
 .dropdown-account:hover .dropdown-account-menu{
     display: block;
+    margin-top: 0px;
 }
 
 .badge {
@@ -230,6 +245,7 @@ li{
     padding: 15px;
     border-bottom: 2px solid #8B008b;   
     border-top: 2px solid #8B008b;   
+    box-shadow:  0 3px 5px #888888;
 }
 
 /* --- Responsividad --- */
@@ -248,9 +264,25 @@ li{
     }
 }
 
+#cart-button{
+    background-color: #550055;
+}
+
 .main-item-button{
     border-radius: 10px;
     border: none;
+    box-shadow: 1px 2px 3px #8b008b99;
+    padding: 10px;
+    margin: 5px;
+    width: 100%;    
+    justify-content: center;
+    cursor: pointer;
+}
+
+.main-item-button2{
+    border-radius: 10px;
+    border: none;
+    color: white;
     box-shadow: 1px 2px 3px #8b008b99;
     padding: 10px;
     margin: 5px;

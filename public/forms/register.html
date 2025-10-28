@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sign up.css">
+</head>
+<body>
+    <div class="register-container">
+        <form action="register.php" method="post">
+            <h1>Create an account</h1>
+
+            <label for="fullname">Full name</label>
+            <input type="text" id="fullname" name="fullname" required autocomplete="name">
+
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required autocomplete="username">
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required minlength="8"
+            pattern="(?=.*[A-Za-z])(?=.*\d).{8,}" autocomplete="new-password"
+            title="At least 8 characters, including letters and numbers.">
+
+            <label for="confirm_password">Confirm password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required autocomplete="new-password">
+
+            <div class="remember-me">
+                <input type="checkbox" id="remember" name="remember">
+                <label for="remember">Remember me</label>
+            </div>
+
+            <div class="row">
+                <input type="checkbox" id="terms" name="terms" required>
+                <label for="terms">I agree to the Terms and Conditions</label>
+            </div>
+
+            <button type="submit">Register</button>
+
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </form>
+    </div>
+</body>
+</html>
