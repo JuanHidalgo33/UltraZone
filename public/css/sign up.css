@@ -10,8 +10,8 @@ body {
 
 /* CONTENEDOR PRINCIPAL DEL FORMULARIO */
 .register-container {
-    margin: 15px 0 15px 0;
     background: #111;
+    margin: 15px 0 15px 0;
     width: 340px;
     padding: 30px;
     border-radius: 10px;
