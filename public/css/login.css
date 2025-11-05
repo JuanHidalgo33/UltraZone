@@ -96,3 +96,15 @@ body {
     text-decoration: none;
 }
 
+.error-box {
+    color: #fff;
+    border-radius: 5px;
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.error-msg {
+    color: #fff;
+    text-align: center ;
+}

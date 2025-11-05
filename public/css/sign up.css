@@ -15,7 +15,7 @@ body {
     width: 340px;
     padding: 30px;
     border-radius: 10px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.25);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
     color: #ffffff;
     text-align: left;
 }
@@ -114,6 +114,38 @@ body {
 
 .register-container p a:hover {
     text-decoration: underline;
+}
+
+.error-box {
+    background: #8B0000;
+    color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 15px 0;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 500;
+}
+
+.success-box {
+    background: #1e7e34;
+    color: #fff;
+    padding: 12px;
+    border-radius: 5px;
+    margin: 15px 0;
+    font-size: 14px;
+    text-align: center;
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.error-list li {
+    margin: 5px 0;
+    font-size: 13px;
 }
 
 /* RESPONSIVE */

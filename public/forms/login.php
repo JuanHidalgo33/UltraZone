@@ -1,83 +1,89 @@
+<?php
+session_start();
+require "conection.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = trim($_POST['email']);
+    $pass  = $_POST['pass'];
+
+    $sql = "SELECT id, email, password FROM usuarios WHERE email = ?";
+    $params = array($email);
+
+    $stmt = sqlsrv_prepare($conn, $sql, $params);
+    if ($stmt === false || sqlsrv_execute($stmt) === false) {
+        die("Error: " . print_r(sqlsrv_errors(), true));
+    }
+
+    if (sqlsrv_has_rows($stmt)) {
+        $user = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
+        if (password_verify($pass, $user['password'])) {
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['email']   = $user['email'];
+            header("Location: ../MyAccount.php");
+            exit();
+        } else {
+            header("Location: login.php?error=contrasena_incorrecta");
+            exit();
+        }
+    } else {
+        header("Location: login.php?error=usuario_no_encontrado");
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Iniciar sesión - UltraZone</title>
-  <link rel="stylesheet" href="../css/style.css">
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/login.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
-  <!-- Header -->
-  <header id="header">
-    <!-- Top Bar -->
-    <div class="top-bar">
-      <div class="container">
-        <div class="top-bar-item">
-          <i class="bi bi-telephone-fill"></i>
-          <span>¿Necesitas ayuda? Contáctanos: </span>
-          <a href="#">+57 3502296816</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- Main Header -->
-    <div class="main-header">
-      <div class="main-header-container">
-        <div class="header-item">
-          <a class="logo" href="../index.html">
-            <h1>UltraZone</h1>
-          </a>
-        </div>
-        <form class="search">
-          <div class="search-input">
-            <input type="text" class="text-search-input" placeholder="Buscar productos">
-            <button class="search-button" type="submit">
-              <i class="bi bi-search"></i>
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-
-    <!-- Nav Menu -->
-    <div class="header-nav">
-      <div class="nav-container">
-        <nav id="nav-menu" class="nav-menu">
-          <ul class="nav-list">
-            <li class="nav-item"><a href="../index.html">Inicio</a></li>
-            <li class="nav-item"><a href="#">Camisetas</a></li>
-            <li class="nav-item"><a href="#">Polo</a></li>
-            <li class="nav-item"><a href="#">Caps</a></li>
-            <li class="nav-item"><a href="#">Hoodies</a></li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main style="display:flex; justify-content:center; align-items:center; min-height:70vh;">
+<form action="login.php" method="post">
     <div class="login-container">
-      <h2>Iniciar Sesión</h2>
-      <form action="authenticate.php" method="post">
-        <label for="username">Usuario:</label>
-        <input type="text" id="username" name="username" required>
 
-        <label for="password">Contraseña:</label>
-        <input type="password" id="password" name="password" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" 
+               value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>" required>
 
-        <input type="submit" value="Entrar" class="main-item-button">
-      </form>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="pass" required>
+
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+
+        <div class="remember-me">
+            <input type="checkbox" id="remember" name="remember" 
+                   <?php echo isset($_POST['remember']) ? 'checked' : ''; ?>>
+            <label for="remember">Remember Me</label>
+        </div>
+        
+        <div class="register-link">
+            <span>Don't have an account? <a href="register.php">Register</a></span>
+        </div>
+
+        <?php if (isset($_GET['error'])): ?>
+            <div class="error-box">
+                <p class="error-msg">
+                    <?php 
+                        echo $_GET['error'] === "usuario_no_encontrado" 
+                            ? "❌ Usuario no encontrado" 
+                            : "❌ Contraseña incorrecta";
+                    ?>
+                </p>
+            </div>
+        <?php endif; ?>
+
+        <div class="submit-button">
+            <button type="submit">Login</button>
+        </div>
+
     </div>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer-section">
-    <div class="footer-content">
-      <p>&copy; 2025 UltraZone - Todos los derechos reservados</p>
-    </div>
-  </footer>
+</form>
 
 </body>
 </html>
