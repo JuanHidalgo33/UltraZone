@@ -2,9 +2,7 @@
 $serverName = "DESKTOP-STJSKJ9";
 
 $connectionInfo = [
-    "Database" => "UltraZoneDB",
-    "UID"      => "ultrauser",          
-    "PWD"      => "Ultra1234!",         
+    "Database" => "UltraZone",       
     "CharacterSet" => "UTF-8",
     "TrustServerCertificate" => true
 ];
