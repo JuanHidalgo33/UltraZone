@@ -3,13 +3,12 @@ session_start();
 require "forms/conection.php";
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: forms/login.php");
     exit();
 }
 
 $userID = $_SESSION['user_id'];
 
-// SELECT sin modificar columnas existentes
 $sql = "SELECT fullname, username, email, profile_image FROM usuarios WHERE userID = ?";
 $params = array($userID);
 $stmt = sqlsrv_query($conn, $sql, $params);
@@ -34,15 +33,15 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
 <header>
     <h1>Mi Cuenta</h1>
     <nav>
-        <a href="index.php">Inicio</a> |
-        <a href="logout.php">Cerrar sesión</a>
+        <a href="index.html">Inicio</a> |
+        <a href="logout.php">Cerrar sesion</a>
     </nav>
-</header>
+    </header>
 
 <main>
 
     <section>
-        <h2>Información del Usuario</h2>
+        <h2>Informacion del Usuario</h2>
 
         <figure>
             <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Foto de perfil">
@@ -52,35 +51,37 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
             </figcaption>
         </figure>
 
-        <form action="updateAccount.php" method="post" enctype="multipart/form-data">
+        <form action="updateAccount.php" method="post" enctype="multipart/form-data" id="account-form">
 
             <dl>
                 <dt>Nombre completo</dt>
                 <dd>
-                    <input type="text" name="fullname" 
-                        value="<?php echo htmlspecialchars($user['fullname']); ?>" required>
+                    <input type="text" name="fullname" id="fullname"
+                        value="<?php echo htmlspecialchars($user['fullname']); ?>" required disabled>
                 </dd>
 
                 <dt>Usuario</dt>
                 <dd>
-                    <input type="text" name="username" 
-                        value="<?php echo htmlspecialchars($user['username']); ?>" required>
+                    <input type="text" name="username" id="username"
+                        value="<?php echo htmlspecialchars($user['username']); ?>" required disabled>
                 </dd>
 
                 <dt>Correo</dt>
                 <dd>
-                    <input type="email" name="email" 
-                        value="<?php echo htmlspecialchars($user['email']); ?>" required>
+                    <input type="email" name="email" id="email"
+                        value="<?php echo htmlspecialchars($user['email']); ?>" required disabled>
                 </dd>
 
                 <dt>Cambiar foto de perfil</dt>
                 <dd>
-                    <input type="file" name="profile_image">
+                    <input type="file" name="profile_image" id="profile_image" disabled>
                 </dd>
             </dl>
 
-            <p style="text-align:center;">
-                <button type="submit" class="btn-save">Guardar cambios</button>
+            <p style="text-align:center; display:flex; gap:12px; justify-content:center;">
+                <button type="button" id="btn-edit">Editar</button>
+                <button type="button" id="btn-cancel" disabled>Cancelar</button>
+                <button type="submit" class="btn-save" id="btn-save" disabled>Guardar cambios</button>
             </p>
 
         </form>
@@ -89,18 +90,18 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
 </main>
 
 <footer>
-    © <?php echo date("Y"); ?> UltraZone - Todos los derechos reservados.
+    <?php echo date('Y'); ?> UltraZone - Todos los derechos reservados.
 </footer>
 
-<!-- ✅ POPUP -->
-<?php if (isset($_GET['update']) && $_GET['update'] === "ok"): ?>
-<div class="popup-overlay" id="popup">
+<div class="popup-overlay" id="popup-update">
     <div class="popup-box">
-        <h2>✅ Datos actualizados correctamente</h2>
-        <button onclick="window.location.href='MyAccount.php'">Aceptar</button>
+        <h2>Datos actualizados correctamente</h2>
+        <button id="popup-update-accept">Aceptar</button>
     </div>
+    
 </div>
-<?php endif; ?>
+
+<script src="assets/js/account.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>

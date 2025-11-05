@@ -26,18 +26,19 @@
                 </div>
                 <div class="top-bar-item">
                     <div class="dropdown-toggle">
-                        <a class="" href="#">
-                            <i class="bi bi-translate"></i>
-                            <span>ES</span>
-                            <i class="bi bi-caret-down-fill"></i>
-                        </a>
+                        <label for="lang-select" style="display:none;">Idioma</label>
+                        <select id="lang-select">
+                            <option value="ES">ES</option>
+                            <option value="EN">EN</option>
+                        </select>
                     </div>
                     <div class="dropdown-toggle">
-                        <a class="" href="#">
-                            <i class="bi bi-currency-dollar"></i>
-                            <span>USD</span>
-                            <i class="bi bi-caret-down-fill"></i>
-                        </a>
+                        <label for="currency-select" style="display:none;">Moneda</label>
+                        <select id="currency-select">
+                            <option value="COP">COP</option>
+                            <option value="USD">USD</option>
+                            <option value="EUR">EUR</option>
+                        </select>
                     </div>
                 </div>
             </div>
@@ -51,9 +52,9 @@
                         <h1>UltraZone</h1>
                     </a>
                 </div>
-                <form class="search">
+                <form class="search" id="search-form">
                     <div class="search-input">
-                        <input type="text" class="text-search-input" placeholder="Search for products">
+                        <input type="text" class="text-search-input" id="search-input" placeholder="Search for products">
                         <button class="search-button" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -66,10 +67,10 @@
                             <i class="bi bi-person"></i>
                         </button>
                         <ul class="dropdown-account-menu">
-                            <li><a href="forms/login.php" target="_blank">Iniciar sesión</a></li>
+                            <li><a href="forms/login.php" target="_blank">Iniciar sesion</a></li>
                             <li><a href="forms/register.php" target="_blank">Registrarse</a></li>
                             <li><a href="MyAccount.php">Mi cuenta</a></li>
-                            <li><a href="#">Cerrar sesión</a></li>
+                            <li><a href="#">Cerrar sesion</a></li>
                         </ul>
                     </div>  
                     <a class="whishlist" href="#">
@@ -99,78 +100,7 @@
         </div>
     </header>
     <!--Main-->
-    <div class="main-grid-container">
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button">Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-        <div class="main-grid-item">
-            <img src="assets/img/BLACK FRONT.png" alt="">
-            <h4>Camiseta Negra</h4>
-            <p>$ 65.000 COP</p>
-            <button class="main-item-button" id="buy-button" >Comprar</button>
-            <button class="main-item-button2" id="cart-button">Añadir al carrito</button>
-        </div>
-    </div>
+    <div class="main-grid-container" id="products-grid"></div>
 
     <!--seccion 1-->
     <div class="section1">
@@ -319,6 +249,9 @@
             </div>
         </footer>
     </div>
+<script src='assets/js/store.js?v=1'></script>
 </body>
 
 </html>
+
+

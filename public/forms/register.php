@@ -27,10 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    $hashed = password_hash($input['password'], PASSWORD_DEFAULT);
-
     $sqlInsert = "INSERT INTO usuarios (email, fullname, username, passwrd) VALUES (?, ?, ?, ?)";
-    $params = array($input['email'], $input['fullname'], $input['username'], $hashed);
+    $params = array($input['email'], $input['fullname'], $input['username'], $input['password']);
     $stmt = sqlsrv_prepare($conn, $sqlInsert, $params);
 
     if ($stmt && sqlsrv_execute($stmt)) {
@@ -50,6 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Register</title>
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/sign up.css?v=<?php echo time(); ?>">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
 <body>
 
@@ -62,9 +61,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <ul class="error-list">
                     <li>
                         <?php
-                            if ($_GET['error'] === "email") echo "❌ Este email ya está registrado.";
-                            else if ($_GET['error'] === "pass") echo "❌ Las contraseñas no coinciden.";
-                            else echo "❌ Error en el servidor, intenta más tarde.";
+                            if ($_GET['error'] === "email") echo "Este email ya esta registrado.";
+                            else if ($_GET['error'] === "pass") echo "Las contrasenas no coinciden.";
+                            else echo "Error en el servidor, intenta mas tarde.";
                         ?>
                     </li>
                 </ul>
@@ -95,25 +94,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <p>Already have an account? <a href="login.php">Login</a></p>
 
-        <!-- ✅ POPUP DE REGISTRO EXITOSO -->
         <?php if (isset($_GET['success']) && $_GET['success'] === "ok"): ?>
             <div class="popup-overlay" id="popup">
                 <div class="popup-box">
-                    <h2>✅ Registro exitoso</h2>
-                    <p>¡Tu cuenta ha sido creada correctamente!</p>
+                    <h2>Registro exitoso</h2>
+                    <p>Tu cuenta ha sido creada correctamente.</p>
                 </div>
             </div>
-
-            <script>
-                document.getElementById('popup').style.display = 'flex';
-                setTimeout(() => {
-                    window.location.href = "login.php";
-                }, 2000);
-            </script>
         <?php endif; ?>
 
     </form>
 </div>
 
+<script src="../assets/js/register.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

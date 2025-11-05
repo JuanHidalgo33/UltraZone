@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
     $pass  = trim($_POST['passwrd']);
 
-    $sql = "SELECT userID, email, passwrd FROM usuarios WHERE email = ? AND passwrd = ?";
+    $sql = "SELECT userID, email, passwrd FROM usuarios WHERE email = ? AND passwrd COLLATE Latin1_General_CS_AS = ?";
     $params = array($email, $pass);
 
     $stmt = sqlsrv_prepare($conn, $sql, $params);
@@ -53,7 +53,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <label for="email">Email:</label>
 
-        <input type="text" id="email" name="email" 
+        <input type="text" id="email" name="email"
                value="<?php 
                     echo isset($_POST['email']) 
                     ? htmlspecialchars($_POST['email']) 
@@ -81,28 +81,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <?php if (isset($_GET['success']) && $_GET['success'] === "login_ok"): ?>
             <div class="popup-overlay" id="popup">
                 <div class="popup-box">
-                    <h2>✅ Inicio de sesión exitoso</h2>
+                    <h2>Inicio de sesion exitoso</h2>
                 </div>
             </div>
+        <?php endif; ?>
 
-            <script>
-                document.getElementById('popup').style.display = 'flex';
-
-                setTimeout(() => {
-                    window.location.href = "../MyAccount.php";
-                }, 2000);
-            </script>
+        <?php if (isset($_GET['logout']) && $_GET['logout'] === "ok"): ?>
+            <div class="popup-overlay" id="popup-logout">
+                <div class="popup-box">
+                    <h2>Cierre de sesion exitoso</h2>
+                </div>
+            </div>
         <?php endif; ?>
 
         <?php if (isset($_GET['error'])): ?>
             <div class="error-box">
-                <p class="error-msg">
-                    <?php 
-                        echo $_GET['error'] === "usuario_no_encontrado" 
-                            ? "❌ Usuario no encontrado" 
-                            : "❌ Contraseña incorrecta";
-                    ?>
-                </p>
+                <p class="error-msg">Datos incorrectos. Verifica tus credenciales.</p>
             </div>
         <?php endif; ?>
 
@@ -113,5 +107,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </form>
 
+<script src="../assets/js/auth.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>

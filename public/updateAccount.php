@@ -3,7 +3,7 @@ session_start();
 require "forms/conection.php";
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
+    header("Location: forms/login.php");
     exit();
 }
 
@@ -13,7 +13,6 @@ $username = $_POST['username'];
 $email    = $_POST['email'];
 $newFile  = null;
 
-// ✅ Si el usuario sube una nueva imagen
 if (!empty($_FILES['profile_image']['name'])) {
     $fileName = $_FILES['profile_image']['name'];
     $tmpName  = $_FILES['profile_image']['tmp_name'];
@@ -27,7 +26,6 @@ if (!empty($_FILES['profile_image']['name'])) {
     $params = array($fullname, $username, $email, $newFile, $userID);
 
 } else {
-    // ✅ Sin imagen
     $sql = "UPDATE usuarios SET fullname=?, username=?, email=? WHERE userID=?";
     $params = array($fullname, $username, $email, $userID);
 }
