@@ -192,9 +192,10 @@ window.ultraT = t;
                 const name = card.querySelector("h4")?.textContent?.trim() || "";
                 const abs = card.querySelector("img")?.src || "";
                 const originPrefix = location.origin + "/";
-                const img = abs.startsWith(originPrefix) ? abs.slice(originPrefix.length) : abs;
-                const priceText = card.querySelector("p")?.textContent || "0";
-                const price = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
+                const relAbs = abs.startsWith(originPrefix) ? abs.slice(originPrefix.length) : abs;
+                const addBtnCard = card.querySelector('.add-cart-btn');
+                const img = addBtnCard?.dataset.image || relAbs;
+                const price = parseFloat(addBtnCard?.dataset.price || '0');
                 const details = getFavDetails();
                 details[id] = { id, name, price, image: img };
                 saveFavDetails(details);
@@ -393,6 +394,27 @@ window.ultraT = t;
             return;
         }
 
+        // Comprar: crea una orden rápida con 1 unidad y va al carrito
+        const buyBtn = e.target.closest(".main-item-button");
+        if (buyBtn) {
+            const card = buyBtn.closest('.main-grid-item');
+            if (!card) return;
+            const base = getPhpBase();
+            fetch(`${base}php/session-status.php`, { credentials:'same-origin' })
+              .then(r => r.json())
+              .then(data => {
+                if (!data || !data.logged) { if (typeof showToast === 'function') showToast('Debes iniciar sesión o registrarte.'); return; }
+                const addBtn = card.querySelector('.add-cart-btn');
+                if (!addBtn) return;
+                const product = { id: parseInt(addBtn.dataset.id), name: addBtn.dataset.name, price: parseFloat(addBtn.dataset.price), image: addBtn.dataset.image };
+                addToCart(product);
+                const target = window.location.pathname.includes('/categorias/') ? '../cart.html' : 'cart.html';
+                window.location.href = target;
+              })
+              .catch(() => { if (typeof showToast === 'function') showToast('No se pudo validar la sesión.'); });
+            return;
+        }
+
         const cartBtn = e.target.closest(".add-cart-btn");
         if (cartBtn) {
             const product = {
@@ -488,9 +510,49 @@ window.ultraT = t;
 
         // Delegación de eventos para +/- dentro del menú
         if (cartMenu) {
-            cartMenu.addEventListener("click", (e) => {
+            cartMenu.addEventListener("click", async (e) => {
                 // Evita que el click burbujee al document y cierre el dropdown
                 e.stopPropagation();
+                const goto = e.target.closest('.cart-goto-btn');
+                if (goto) {
+                    const target = window.location.pathname.includes('/categorias/') ? '../cart.html' : 'cart.html';
+                    window.location.href = target;
+                    return;
+                }
+                const pay = e.target.closest('.cart-pay-btn');
+                if (pay) {
+                    const items = getCart();
+                    if (!items.length) return;
+                    try {
+                        // Validación de sesión antes de iniciar checkout
+                        const sess = await fetch(`${getPhpBase()}php/session-status.php`, { credentials: 'same-origin' });
+                        const sdata = await sess.json().catch(()=>({logged:false}));
+                        if (!sdata || !sdata.logged){
+                            if (typeof showToast === 'function') showToast('Debes iniciar sesión o registrarte.');
+                            return;
+                        }
+                        const payload = {
+                            currency: (typeof window.ultraSettings === 'function' ? window.ultraSettings().currency : 'COP'),
+                            items: items.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty }))
+                        };
+                        const base = getPhpBase();
+                        const res = await fetch(`${base}php/pay/checkout.php`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                            credentials: 'same-origin'
+                        });
+                        const data = await res.json();
+                        if (res.ok && data && data.url) {
+                            window.location.href = data.url;
+                        } else {
+                            if (typeof showToast === 'function') showToast('No se pudo iniciar el pago');
+                        }
+                    } catch (err) {
+                        if (typeof showToast === 'function') showToast('Error de conexión con la pasarela');
+                    }
+                    return;
+                }
                 const plus = e.target.closest(".cart-qty-plus");
                 const minus = e.target.closest(".cart-qty-minus");
                 if (!plus && !minus) return;
@@ -593,4 +655,7 @@ window.ultraT = t;
     updateCartCounter();  
     fetchProducts();
 });
+
+
+
 

@@ -1,0 +1,32 @@
+:root{--accent:#8B008b;--bg:#111;--panel:#1b1e23;--text:#fff;--muted:#9aa3af;}
+body{background:#e7e7e7dd;font-family:Verdana, Geneva, Tahoma, sans-serif;margin:0}
+.cart-header{background:#111;border-bottom:2px solid var(--accent)}
+.cart-header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:12px 16px}
+.cart-logo{color:var(--accent);font-weight:800;text-decoration:none}
+.cart-nav .cart-link{color:#fff;text-decoration:none}
+.cart-nav .cart-link:hover{text-decoration:underline}
+
+.cart-container{max-width:1100px;margin:20px auto;padding:0 16px}
+.cart-title{margin:8px 0 16px}
+.cart-empty{background:#fff;border-radius:12px;padding:24px;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.cart-btn{border-radius:10px;border:1px solid var(--accent);padding:10px 14px;cursor:pointer;background:var(--accent);color:#fff;text-decoration:none;display:inline-block;margin-top:8px}
+.cart-btn.ghost{background:transparent;color:#111;border-color:#333}
+.cart-btn.primary{background:var(--accent);color:#fff}
+
+.cart-content{display:grid;grid-template-columns:2fr 1fr;gap:14px}
+.cart-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.cart-table th{background:#f5f5f7;text-align:left;padding:12px;color:#333}
+.cart-table td{padding:12px;border-top:1px solid #eee;vertical-align:middle}
+.cart-item{display:flex;align-items:center;gap:10px}
+.cart-item img{width:64px;height:64px;object-fit:cover;border-radius:8px}
+.qty{display:inline-flex;align-items:center;border:1px solid #ddd;border-radius:8px;overflow:hidden}
+.qty button{background:#f2f2f2;border:none;width:28px;height:28px;cursor:pointer}
+.qty span{display:inline-block;width:34px;text-align:center}
+.remove-btn{border:none;background:transparent;color:#a00;cursor:pointer}
+
+.cart-summary{background:#fff;border-radius:12px;padding:16px;box-shadow:0 4px 12px rgba(0,0,0,.08);height:fit-content}
+.cart-summary-row{display:flex;justify-content:space-between;margin:8px 0;color:#333}
+.cart-summary-actions{display:flex;gap:8px;margin-top:10px}
+
+@media(max-width:900px){.cart-content{grid-template-columns:1fr}}
+
