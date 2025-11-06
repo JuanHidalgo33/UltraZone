@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link href="../../assets/img/FavIcon.png" rel="icon">
     <meta charset="UTF-8">
     <title>Register</title>
     <link rel="stylesheet" href="../../css/style.css">

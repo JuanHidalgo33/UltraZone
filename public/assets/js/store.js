@@ -547,6 +547,10 @@ window.ultraT = t;
                     if (href.endsWith('/php/forms/register.php')) {
                         li.style.display = logged ? 'none' : '';
                     }
+                    // Ocultar "Iniciar sesion" si SÍ hay sesión
+                    if (href.endsWith('/php/forms/login.php')) {
+                        li.style.display = logged ? 'none' : '';
+                    }
                 });
             });
         } catch (e) {

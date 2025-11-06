@@ -214,7 +214,130 @@ footer {
 @media (max-width: 860px) {
     dl {
         grid-template-columns: 1fr;
-    }
+}
+
+/* -------------------------
+   Form fields and buttons
+   ------------------------- */
+#account-form {
+    position: relative;
+}
+
+#account-form .read-value {
+    display: block;
+    padding: 8px 0;
+    color: #ffffff;
+    font-size: 1rem;
+    letter-spacing: 0.2px;
+    border-bottom: 1px dashed #373c44;
+}
+
+#account-form.editing .read-value {
+    display: none;
+}
+
+#account-form:not(.editing) dd > input { display: none !important; }
+#account-form:not(.editing) input[type="file"] { display: none !important; }
+#account-form.editing dd > input { display: block; }
+/* Refuerzo general para evitar que se vean inputs en modo lectura por caché o estructura */
+#account-form:not(.editing) input { display: none !important; }
+#account-form.editing input { display: block; }
+#account-form input[type="text"],
+#account-form input[type="email"],
+#account-form input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #3b3f46;
+    background: #1b1e23;
+    color: #fff;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+}
+
+#account-form input[type="file"] {
+    padding: 8px 10px;
+    background: #171a1f;
+}
+
+#account-form input:focus {
+    border-color: #8B008b;
+    box-shadow: 0 0 0 3px rgba(139, 0, 139, 0.25);
+}
+
+#account-form input:disabled {
+    background: transparent;
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: none;
+    cursor: default;
+    opacity: 1;
+    padding: 0;
+}
+
+/* Action buttons */
+#btn-edit,
+#btn-cancel,
+#btn-save,
+#account-form button {
+    appearance: none;
+    border-radius: 10px;
+    border: 1px solid #6a3dbd;
+    padding: 10px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform .06s ease, background .15s ease, box-shadow .15s ease, color .15s ease, border-color .15s ease;
+}
+
+#btn-edit {
+    background: #232730;
+    color: #ffffff;
+    border-color: #4a4f58;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+#btn-edit:hover { background: #2d3340; }
+#btn-edit:active { transform: translateY(1px); }
+
+#btn-cancel {
+    background: #1d2128;
+    color: #cbd5e1;
+    border-color: #3b3f46;
+}
+#btn-cancel:disabled { opacity: 0.6; cursor: not-allowed; }
+#btn-cancel:hover { background: #222833; }
+
+#btn-save,
+#account-form .btn-save {
+    background: linear-gradient(90deg, #8B008b 0%, #6a3dbd 100%);
+    color: #fff;
+    border-color: #8B008b;
+    box-shadow: 0 6px 16px rgba(139,0,139,0.25);
+}
+#btn-save:hover,
+#account-form .btn-save:hover {
+    filter: brightness(1.05);
+    box-shadow: 0 8px 18px rgba(139,0,139,0.35);
+}
+#btn-save:disabled,
+#account-form .btn-save:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Fine tune definition list spacing for inputs */
+#account-form dd { padding-top: 0; }
+#account-form dt { padding-top: 8px; }
+
+/* Ocultar selector de archivo cuando no está en modo edición */
+#account-form input[type="file"][disabled] {
+    display: none;
+}
+
+/* Apariencia de texto para inputs deshabilitados: evitar caret y selección visual */
+#account-form input:disabled::selection { background: transparent; }
+#account-form input:disabled { -webkit-text-fill-color: #fff; }
+
 
     figure {
         justify-content: center;

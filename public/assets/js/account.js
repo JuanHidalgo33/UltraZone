@@ -13,6 +13,15 @@ document.addEventListener('DOMContentLoaded', function(){
     if (fileInput) fileInput.disabled = disabled;
     if (btnSave) btnSave.disabled = disabled;
     if (btnCancel) btnCancel.disabled = disabled;
+
+    const form = document.getElementById('account-form');
+    if (form){
+      if (disabled){
+        form.classList.remove('editing');
+      } else {
+        form.classList.add('editing');
+      }
+    }
   }
 
   // Asegurar deshabilitado al cargar
