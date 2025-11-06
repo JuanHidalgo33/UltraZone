@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -54,7 +54,8 @@
                 </div>
                 <form class="search" id="search-form">
                     <div class="search-input">
-                        <input type="text" class="text-search-input" id="search-input" placeholder="Search for products">
+                        <input type="text" class="text-search-input" id="search-input"
+                            placeholder="Search for products">
                         <button class="search-button" type="submit">
                             <i class="bi bi-search"></i>
                         </button>
@@ -72,15 +73,17 @@
                             <li><a href="MyAccount.php">Mi cuenta</a></li>
                             <li><a href="#">Cerrar sesion</a></li>
                         </ul>
-                    </div>  
+                    </div>
                     <a class="whishlist" href="#">
                         <i class="bi bi-heart"></i>
-                        <span class="badge">3</span>
+                        <span class="badge" id="wishlist-count">0</span>
                     </a>
+
                     <a class="dropdown-cart" href="#">
                         <i class="bi bi-cart"></i>
-                        <span class="badge">1</span>
+                        <span class="badge" id="cart-count">0</span>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -249,9 +252,7 @@
             </div>
         </footer>
     </div>
-<script src='assets/js/store.js?v=1'></script>
+    <script src='assets/js/store.js?v=1'></script>
 </body>
 
 </html>
-
-
