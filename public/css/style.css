@@ -144,6 +144,7 @@ a:hover {
 .dropdown-account {
     position: relative; 
     display: inline-block ;
+    z-index: 2000;
 }
 
 .dropdown-account-btn {
@@ -163,6 +164,7 @@ a:hover {
     border-radius: 8px;
     padding: 10px;
     text-align: center;
+    z-index: 3000 
 }
 
 .dropdown-account-menu li{
@@ -196,6 +198,219 @@ a:hover {
     transform: translate(-5px, -5px);
 }
 
+/* Wishlist dropdown */
+.dropdown-wishlist {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-wishlist-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #111;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    width: 340px;
+    max-height: 420px;
+    overflow: auto;
+    z-index: 50;
+}
+
+.dropdown-wishlist.open .dropdown-wishlist-menu {
+    display: block;
+}
+
+.wishlist-empty {
+    color: #ccc;
+    text-align: center;
+    padding: 16px;
+}
+
+.wishlist-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.wishlist-item:last-child {
+    border-bottom: none;
+}
+
+.wishlist-item-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.wishlist-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.wishlist-item-name {
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.wishlist-item-price {
+    color: #bbb;
+    font-size: 13px;
+}
+
+.wishlist-item-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.wishlist-remove-btn,
+.wishlist-addcart-btn {
+    border-radius: 6px;
+    border: 1px solid #8B008b;
+    padding: 6px 8px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #fff;
+    background: transparent;
+}
+
+.wishlist-remove-btn:hover {
+    background: #2a002a;
+}
+
+.wishlist-addcart-btn {
+    background: #8B008b;
+}
+
+.wishlist-addcart-btn:hover {
+    background: #6f0a6f;
+}
+
+/* Cart dropdown */
+.dropdown-cartbox {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-cart-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #111;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    width: 360px;
+    max-height: 480px;
+    overflow: auto;
+    z-index: 60;
+}
+
+.dropdown-cartbox.open .dropdown-cart-menu {
+    display: block;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-bottom: 1px solid #333;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.cart-item-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-name {
+    color: #fff;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.cart-item-price {
+    color: #bbb;
+    font-size: 13px;
+}
+
+.cart-qty-controls {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cart-qty-btn {
+    width: 26px;
+    height: 26px;
+    border-radius: 6px;
+    border: 1px solid #8B008b;
+    background: #8B008b;
+    color: #fff;
+    cursor: pointer;
+}
+
+.cart-qty-value {
+    color: #fff;
+    min-width: 18px;
+    text-align: center;
+}
+
+.cart-menu-footer {
+    display: flex;
+    gap: 8px;
+    padding: 10px 8px 4px;
+    position: sticky;
+    bottom: 0;
+    background: #111;
+}
+
+.cart-pay-btn,
+.cart-goto-btn {
+    flex: 1;
+    border-radius: 8px;
+    padding: 10px 12px;
+    border: 1px solid #8B008b;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.cart-pay-btn {
+    background: #8B008b;
+    color: #fff;
+}
+
+.cart-goto-btn {
+    background: transparent;
+    color: #fff;
+}
+
+.cart-goto-btn:hover { background: #2a002a; }
+.cart-pay-btn:hover { background: #6f0a6f; }
+
 .header-nav{
     display: flex;
     justify-content: center;
@@ -227,6 +442,8 @@ li{
     gap: 35px;
     max-width: 1500px;
     margin: 15px;
+    z-index: 1;
+    position: relative;
 }
 
 

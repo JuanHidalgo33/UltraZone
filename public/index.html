@@ -74,15 +74,25 @@
                             <li><a href="#">Cerrar sesion</a></li>
                         </ul>
                     </div>
-                    <a class="whishlist" href="#">
-                        <i class="bi bi-heart"></i>
-                        <span class="badge" id="wishlist-count">0</span>
-                    </a>
+                    <div class="dropdown-wishlist">
+                        <a class="whishlist" href="#">
+                            <i class="bi bi-heart"></i>
+                            <span class="badge" id="wishlist-count">0</span>
+                        </a>
+                        <div class="dropdown-wishlist-menu" id="wishlist-menu">
+                            <div class="wishlist-empty">No tienes favoritos</div>
+                        </div>
+                    </div>
 
-                    <a class="dropdown-cart" href="#">
-                        <i class="bi bi-cart"></i>
-                        <span class="badge" id="cart-count">0</span>
-                    </a>
+                    <div class="dropdown-cartbox">
+                        <a class="dropdown-cart" href="#">
+                            <i class="bi bi-cart"></i>
+                            <span class="badge" id="cart-count">0</span>
+                        </a>
+                        <div class="dropdown-cart-menu" id="cart-menu">
+                            <div class="wishlist-empty">Tu carrito está vacío</div>
+                        </div>
+                    </div>
 
                 </div>
             </div>
