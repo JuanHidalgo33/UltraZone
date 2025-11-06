@@ -46,8 +46,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Register</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/sign up.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/sign up.css?v=<?php echo time(); ?>">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 </head>
 <body>
@@ -82,30 +82,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="password">Password</label>
         <input type="password" id="password" name="password" required>
 
-        <label for="confirm_password">Confirm password</label>
+        <label for="confirm_password">Confirm Password</label>
         <input type="password" id="confirm_password" name="confirm_password" required>
 
-        <div class="row">
+        <div class="terms">
             <input type="checkbox" id="terms" name="terms" required>
-            <label for="terms">I agree to the Terms and Conditions</label>
+            <label for="terms">Acepto los términos y condiciones</label>
         </div>
 
         <button type="submit">Register</button>
-
-        <p>Already have an account? <a href="login.php">Login</a></p>
-
-        <?php if (isset($_GET['success']) && $_GET['success'] === "ok"): ?>
-            <div class="popup-overlay" id="popup">
-                <div class="popup-box">
-                    <h2>Registro exitoso</h2>
-                    <p>Tu cuenta ha sido creada correctamente.</p>
-                </div>
-            </div>
-        <?php endif; ?>
-
     </form>
 </div>
 
-<script src="../assets/js/register.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
+

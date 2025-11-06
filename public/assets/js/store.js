@@ -84,7 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const card = heartBtn.closest(".main-grid-item");
             if (card) {
                 const name = card.querySelector("h4")?.textContent?.trim() || "";
-                const img = card.querySelector("img")?.getAttribute("src") || "";
+                const abs = card.querySelector("img")?.src || "";
+                const originPrefix = location.origin + "/";
+                const img = abs.startsWith(originPrefix) ? abs.slice(originPrefix.length) : abs;
                 const priceText = card.querySelector("p")?.textContent || "0";
                 const price = parseFloat(priceText.replace(/[^0-9.]/g, "")) || 0;
                 const details = getFavDetails();
@@ -151,7 +153,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const listHtml = items.map(it => `
             <div class="cart-item" data-id="${it.id}">
-                <img class="cart-item-img" src="${it.image || 'assets/img/BLACK FRONT.png'}" alt="${it.name}">
+                <img class="cart-item-img" src="${resolveAsset(it.image || 'assets/img/BLACK FRONT.png')}" alt="${it.name}">
                 <div class="cart-item-info">
                     <div class="cart-item-name">${it.name}</div>
                     <div class="cart-item-price">$${it.price}</div>
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const html = ids.map(id => {
             const d = details[id] || {};
-            const img = d.image || "assets/img/BLACK FRONT.png";
+            const img = resolveAsset(d.image || "assets/img/BLACK FRONT.png");
             const name = (d.name || `Producto ${id}`);
             const price = (typeof d.price === 'number' ? d.price : 0);
             return `
@@ -215,9 +217,22 @@ document.addEventListener("DOMContentLoaded", () => {
         wishlistMenu.innerHTML = html;
     }
 
+    function getPhpBase() {
+        return window.location.pathname.includes('/categorias/') ? '../' : '';
+    }
+
+    function resolveAsset(url) {
+        if (!url) return url;
+        if (/^https?:/i.test(url) || url.startsWith('/')) return url;
+        const isCategory = window.location.pathname.includes('/categorias/');
+        const prefix = isCategory ? '../' : '';
+        return `${prefix}${url}`;
+    }
+
     async function fetchProducts(query = "") {
         try {
-            const res = await fetch(`forms/products.php?q=${encodeURIComponent(query)}`);
+            const base = getPhpBase();
+            const res = await fetch(`${base}php/forms/products.php?q=${encodeURIComponent(query)}`);
             const data = await res.json();
             renderProducts(data.items || []);
         } catch (error) {
@@ -245,7 +260,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     <i class="bi ${icon}"></i>
                 </button>
 
-                <img src="${p.image}" alt="${p.name}">
+                <img src="${resolveAsset(p.image)}" alt="${p.name}">
                 <h4>${p.name}</h4>
                 <p>$${p.price}</p>
 

@@ -20,7 +20,7 @@ if (!empty($_FILES['profile_image']['name'])) {
     $ext = pathinfo($fileName, PATHINFO_EXTENSION);
     $newFile = "profile_" . $userID . "." . $ext;
 
-    move_uploaded_file($tmpName, "uploads/" . $newFile);
+    move_uploaded_file($tmpName, "../uploads/" . $newFile);
 
     $sql = "UPDATE usuarios SET fullname=?, username=?, email=?, profile_image=? WHERE userID=?";
     $params = array($fullname, $username, $email, $newFile, $userID);
@@ -40,3 +40,4 @@ if ($stmt && sqlsrv_execute($stmt)) {
     exit();
 }
 ?>
+

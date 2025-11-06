@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="bi ${icon}"></i>
         </button>
 
-        <img src="${p.image}" alt="${p.name}">
+        <img src="${(window.location.pathname.includes('/categorias/') ? '../' : '') + p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
         <p>$${p.price}</p>
 
@@ -49,12 +49,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function getPhpBase() {
+    return window.location.pathname.includes('/categorias/') ? '../' : '';
+  }
+
   async function fetchCategory(query = "") {
     try {
       const params = new URLSearchParams();
       if (category) params.set("category", category);
       if (query) params.set("q", query);
-      const res = await fetch(`forms/products.php?${params.toString()}`);
+      const base = getPhpBase();
+      const res = await fetch(`${base}php/forms/products.php?${params.toString()}`);
       const data = await res.json();
       render(data.items || []);
     } catch (e) {
@@ -77,4 +82,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // Cargar categoría al iniciar (puede sobrescribir el render inicial de store.js)
   fetchCategory("");
 });
-

@@ -43,8 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Login Form</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/login.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/login.css?v=<?php echo time(); ?>">
 </head>
 <body>
 
@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="password" id="password" name="passwrd" required>
 
         <div class="forgot-password">
-            <a href="#">Forgot Password?</a>
+            <a>Forgot Password?</a>
         </div>
 
         <div class="remember-me">
@@ -105,8 +105,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
 
     </div>
-</form>
+    </form>
 
-<script src="../assets/js/auth.js?v=<?php echo time(); ?>"></script>
+<script src="../../assets/js/auth.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
+

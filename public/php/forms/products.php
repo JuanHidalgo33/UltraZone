@@ -6,10 +6,6 @@ $q = isset($_GET['q']) ? trim($_GET['q']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
 $limit = 50;
 
-// Supone tabla [productos] con columnas:
-// productID (int), name (nvarchar), price_cop (decimal), image_url (nvarchar), category (nvarchar, opcional)
-// Adapta nombres si tu esquema difiere.
-
 $whereParts = [];
 $params = [];
 if ($q !== '') {
@@ -32,7 +28,6 @@ if (!$stmt || !sqlsrv_execute($stmt)) {
 
 $items = [];
 while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
-    // Normalizar imagen relativa si solo guardaste nombre
     $image = $row['image'];
     if ($image && !preg_match('/^https?:/i', $image)) {
         $image = 'assets/img/' . ltrim($image, '/');
@@ -40,10 +35,11 @@ while ($row = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC)) {
     $items[] = [
         'id' => (int)$row['id'],
         'name' => $row['name'],
-        'price' => (float)$row['price'], // asumido en COP
+        'price' => (float)$row['price'],
         'image' => $image ?: 'assets/img/BLACK FRONT.png'
     ];
 }
 
 echo json_encode([ 'items' => $items ]);
 ?>
+

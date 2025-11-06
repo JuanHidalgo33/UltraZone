@@ -15,3 +15,4 @@ setcookie('recordar_usuario', '', time() - 3600, '/');
 header('Location: forms/login.php?logout=ok');
 exit();
 ?>
+

@@ -26,14 +26,14 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
 <head>
     <meta charset="UTF-8">
     <title>Mi Cuenta</title>
-    <link rel="stylesheet" href="css/MyAccount.css">
-</head>
+    <link rel="stylesheet" href="../css/MyAccount.css">
+}</head>
 <body>
 
 <header>
     <h1>Mi Cuenta</h1>
     <nav>
-        <a href="index.html">Inicio</a> |
+        <a href="../index.html">Inicio</a> |
         <a href="logout.php">Cerrar sesion</a>
     </nav>
     </header>
@@ -44,7 +44,7 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
         <h2>Informacion del Usuario</h2>
 
         <figure>
-            <img src="uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Foto de perfil">
+            <img src="../uploads/<?php echo htmlspecialchars($profilePic); ?>" alt="Foto de perfil">
             <figcaption>
                 <strong><?php echo htmlspecialchars($user['fullname']); ?></strong><br>
                 <small>@<?php echo htmlspecialchars($user['username']); ?></small>
@@ -101,7 +101,8 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
     
 </div>
 
-<script src="assets/js/account.js?v=<?php echo time(); ?>"></script>
+<script src="../assets/js/account.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>
+
