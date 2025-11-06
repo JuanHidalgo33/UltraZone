@@ -38,12 +38,47 @@ document.addEventListener("DOMContentLoaded", () => {
             favs.push(id);
             heartBtn.classList.add("active");
             heartBtn.querySelector("i").className = "bi bi-heart-fill";
-            heartBtn.classList.add("pop");   // animación suave
+            heartBtn.classList.add("pop");
             setTimeout(() => heartBtn.classList.remove("pop"), 250);
         }
 
         saveFavs(favs);
         updateFavCounter();
+    }
+
+    /* ---------------------------
+       ✅ CARRITO (localStorage)
+    ---------------------------- */
+
+    const cartCount = document.getElementById("cart-count");
+
+    function getCart() {
+        return JSON.parse(localStorage.getItem("cartItems") || "[]");
+    }
+
+    function saveCart(arr) {
+        localStorage.setItem("cartItems", JSON.stringify(arr));
+    }
+
+    function updateCartCounter() {
+        if (!cartCount) return;
+        const items = getCart();
+        const total = items.reduce((sum, item) => sum + item.qty, 0);
+        cartCount.textContent = total;
+    }
+
+    function addToCart(product) {
+        let cart = getCart();
+        const found = cart.find(p => p.id === product.id);
+
+        if (found) {
+            found.qty += 1;
+        } else {
+            cart.push({ ...product, qty: 1 });
+        }
+
+        saveCart(cart);
+        updateCartCounter();
     }
 
     /* ---------------------------
@@ -87,7 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 <p>$${p.price}</p>
 
                 <button class="main-item-button">Comprar</button>
-                <button class="main-item-button2">Añadir al carrito</button>
+
+                <!-- ✅ Se agrega id, nombre y precio -->
+                <button class="main-item-button2 add-cart-btn"
+                    data-id="${p.id}"
+                    data-name="${p.name}"
+                    data-price="${p.price}"
+                    data-image="${p.image}">
+                    Añadir al carrito
+                </button>
             `;
 
             grid.appendChild(div);
@@ -99,10 +142,26 @@ document.addEventListener("DOMContentLoaded", () => {
     ---------------------------- */
     grid.addEventListener("click", e => {
         const btn = e.target.closest(".favorite-btn");
-        if (!btn) return;
+        if (btn) {
+            const id = parseInt(btn.dataset.id);
+            toggleFav(id, btn);
+            return;
+        }
 
-        const id = parseInt(btn.dataset.id);
-        toggleFav(id, btn);
+        /* ---------------------------
+           ✅ EVENTO AÑADIR AL CARRITO
+        ---------------------------- */
+        const cartBtn = e.target.closest(".add-cart-btn");
+        if (cartBtn) {
+            const product = {
+                id: parseInt(cartBtn.dataset.id),
+                name: cartBtn.dataset.name,
+                price: parseFloat(cartBtn.dataset.price),
+                image: cartBtn.dataset.image
+            };
+
+            addToCart(product);
+        }
     });
 
     /* ---------------------------
@@ -120,5 +179,6 @@ document.addEventListener("DOMContentLoaded", () => {
        ✅ INICIALIZACIÓN
     ---------------------------- */
     updateFavCounter();
+    updateCartCounter();  // ✅ Ahora inicia con el número correcto
     fetchProducts();
 });
