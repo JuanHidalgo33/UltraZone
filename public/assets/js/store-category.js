@@ -25,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const favActive = isFav(p.id) ? "active" : "";
       const icon = isFav(p.id) ? "bi-heart-fill" : "bi-heart";
 
+      const t = (window.ultraT ? window.ultraT : (k => ({ buy:'Comprar', add_to_cart:'Añadir al carrito' }[k] || k)));
       div.innerHTML = `
         <button class="favorite-btn ${favActive}" data-id="${p.id}">
             <i class="bi ${icon}"></i>
@@ -32,16 +33,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         <img src="${(window.location.pathname.includes('/categorias/') ? '../' : '') + p.image}" alt="${p.name}">
         <h4>${p.name}</h4>
-        <p>$${p.price}</p>
+        <p>${(window.ultraFormatPrice ? window.ultraFormatPrice(p.price) : ('$' + p.price))}</p>
 
-        <button class="main-item-button">Comprar</button>
+        <button class="main-item-button">${t('buy')}</button>
 
         <button class="main-item-button2 add-cart-btn"
             data-id="${p.id}"
             data-name="${p.name}"
             data-price="${p.price}"
             data-image="${p.image}">
-            Añadir al carrito
+            ${t('add_to_cart')}
         </button>
       `;
 
@@ -81,4 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Cargar categoría al iniciar (puede sobrescribir el render inicial de store.js)
   fetchCategory("");
+
+  // Exponer refetch para que store.js pueda re-renderizar al cambiar moneda
+  window.ultraRefetchCategory = function() {
+    const q = (searchInput?.value || "").trim();
+    fetchCategory(q);
+  };
 });

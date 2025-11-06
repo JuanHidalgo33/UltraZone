@@ -30,6 +30,112 @@ document.addEventListener("DOMContentLoaded", () => {
         }, 2000);
     }
 
+    // Preferencias (idioma y moneda)
+    const langSelect = document.getElementById('lang-select');
+    const currencySelect = document.getElementById('currency-select');
+
+    const CURRENCY_RATES = {
+        COP: 1,
+        USD: 0.00025,
+        EUR: 0.00023
+    };
+
+    function getSettings() {
+        return {
+            lang: localStorage.getItem('ultra_lang') || 'ES',
+            currency: localStorage.getItem('ultra_currency') || 'COP'
+        };
+    }
+
+    function setSettings(partial) {
+        const cur = getSettings();
+        const next = { ...cur, ...partial };
+        localStorage.setItem('ultra_lang', next.lang);
+        localStorage.setItem('ultra_currency', next.currency);
+        return next;
+    }
+
+function applySettingsToUI() {
+        const s = getSettings();
+        if (langSelect) langSelect.value = s.lang;
+        if (currencySelect) currencySelect.value = s.currency;
+        const ph = s.lang === 'EN' ? 'Search for products' : 'Buscar productos';
+        if (searchInput) searchInput.placeholder = ph;
+}
+
+// Traducciones simples para UI
+function t(key) {
+    const lang = getSettings().lang;
+    const dict = {
+        buy: { ES: 'Comprar', EN: 'Buy' },
+            add_to_cart: { ES: 'Añadir al carrito', EN: 'Add to cart' },
+        remove: { ES: 'Quitar', EN: 'Remove' },
+        pay: { ES: 'Pagar', EN: 'Checkout' },
+        go_to_cart: { ES: 'Ir al carrito de compras', EN: 'Go to cart' },
+        empty_cart: { ES: 'Tu carrito está vacío', EN: 'Your cart is empty' },
+        empty_wishlist: { ES: 'No tienes favoritos', EN: 'No favorites yet' },
+        total: { ES: 'Total', EN: 'Total' }
+    };
+    return (dict[key] && dict[key][lang]) || (dict[key] && dict[key].ES) || key;
+}
+
+// Exponer helper de traducciones
+window.ultraT = t;
+
+    function formatPrice(value) {
+        const s = getSettings();
+        const rate = CURRENCY_RATES[s.currency] || 1;
+        const converted = (Number(value) || 0) * rate;
+        try {
+            const fmt = new Intl.NumberFormat(s.lang === 'EN' ? 'en-US' : 'es-CO', {
+                style: 'currency',
+                currency: s.currency
+            });
+            return fmt.format(converted);
+        } catch {
+            const symbol = s.currency === 'USD' ? '$' : (s.currency === 'EUR' ? '€' : '$');
+            return symbol + converted.toFixed(2);
+        }
+    }
+
+    // Exponer helpers globales para páginas de categoría
+    window.ultraFormatPrice = formatPrice;
+    window.ultraApplySettings = applySettingsToUI;
+    window.ultraSettings = getSettings;
+
+    // Listeners de selects
+    if (langSelect) {
+        langSelect.addEventListener('change', () => {
+            setSettings({ lang: langSelect.value });
+            applySettingsToUI();
+            // Re-render para aplicar textos
+            if (typeof window.ultraRefetchCategory === 'function') {
+                window.ultraRefetchCategory();
+            } else {
+                fetchProducts(searchInput ? searchInput.value.trim() : '');
+            }
+            renderWishlistDropdown();
+            renderCartDropdown();
+        });
+    }
+    if (currencySelect) {
+        currencySelect.addEventListener('change', () => {
+            setSettings({ currency: currencySelect.value });
+            // Re-render dinámico
+            if (typeof window.ultraRefetchCategory === 'function') {
+                window.ultraRefetchCategory();
+            } else {
+                fetchProducts(searchInput ? searchInput.value.trim() : '');
+            }
+            // Actualizar dropdowns
+            renderWishlistDropdown();
+            renderCartDropdown();
+        });
+    }
+
+    // Sincronizar selects al cargar
+    applySettingsToUI();
+
     // Cache de detalles de favoritos (id -> {id,name,price,image})
     function getFavDetails() {
         return JSON.parse(localStorage.getItem("favDetails") || "{}");
@@ -156,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 <img class="cart-item-img" src="${resolveAsset(it.image || 'assets/img/BLACK FRONT.png')}" alt="${it.name}">
                 <div class="cart-item-info">
                     <div class="cart-item-name">${it.name}</div>
-                    <div class="cart-item-price">$${it.price}</div>
+                    <div class="cart-item-price">${formatPrice(it.price)}</div>
                 </div>
                 <div class="cart-qty-controls">
                     <button class="cart-qty-btn cart-qty-minus" data-id="${it.id}">-</button>
@@ -167,16 +273,15 @@ document.addEventListener("DOMContentLoaded", () => {
         `).join("");
 
         const total = items.reduce((sum, it) => sum + (it.price * it.qty), 0);
-        const format = (n) => `$${(n || 0).toLocaleString('es-CO')}`;
 
         const footer = `
             <div class="cart-menu-footer">
                 <div class="cart-total">
-                    <span>Total</span>
-                    <span class="cart-total-value">${format(total)}</span>
+                    <span>${t('total')}</span>
+                    <span class="cart-total-value">${formatPrice(total)}</span>
                 </div>
-                <button class="cart-pay-btn">Pagar</button>
-                <button class="cart-goto-btn">Ir al carrito de compras</button>
+                <button class="cart-pay-btn">${t('pay')}</button>
+                <button class="cart-goto-btn">${t('go_to_cart')}</button>
             </div>
         `;
 
@@ -190,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const details = getFavDetails();
 
         if (!ids.length) {
-            wishlistMenu.innerHTML = '<div class="wishlist-empty">No tienes favoritos</div>';
+            wishlistMenu.innerHTML = `<div class="wishlist-empty">${t('empty_wishlist')}</div>`;
             return;
         }
 
@@ -204,11 +309,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     <img class="wishlist-item-img" src="${img}" alt="${name}">
                     <div class="wishlist-item-info">
                         <div class="wishlist-item-name">${name}</div>
-                        <div class="wishlist-item-price">$${price}</div>
+                        <div class="wishlist-item-price">${formatPrice(price)}</div>
                     </div>
                     <div class="wishlist-item-actions">
-                        <button class="wishlist-remove-btn" data-id="${id}">Quitar</button>
-                        <button class="wishlist-addcart-btn" data-id="${id}">Agregar al carrito</button>
+                        <button class="wishlist-remove-btn" data-id="${id}">${t('remove')}</button>
+                        <button class="wishlist-addcart-btn" data-id="${id}">${t('add_to_cart')}</button>
                     </div>
                 </div>
             `;
@@ -262,9 +367,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 <img src="${resolveAsset(p.image)}" alt="${p.name}">
                 <h4>${p.name}</h4>
-                <p>$${p.price}</p>
+                <p>${formatPrice(p.price)}</p>
 
-                <button class="main-item-button">Comprar</button>
+                <button class="main-item-button">${t('buy')}</button>
 
                 <!-- ✅ Se agrega id, nombre y precio -->
                 <button class="main-item-button2 add-cart-btn"
@@ -272,7 +377,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     data-name="${p.name}"
                     data-price="${p.price}"
                     data-image="${p.image}">
-                    Añadir al carrito
+                    ${t('add_to_cart')}
                 </button>
             `;
 
@@ -420,7 +525,68 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // Mostrar/ocultar opciones de cuenta según sesión
+    async function updateAccountMenuVisibility() {
+        try {
+            const base = getPhpBase();
+            const res = await fetch(`${base}php/session-status.php`, { credentials: 'same-origin' });
+            const data = await res.json();
+            const logged = !!(data && data.logged);
+
+            const allMenus = document.querySelectorAll('.dropdown-account-menu');
+            allMenus.forEach(menu => {
+                const links = menu.querySelectorAll('a');
+                links.forEach(a => {
+                    const href = a.href || '';
+                    const li = a.closest('li') || a;
+                    // Ocultar "Cerrar sesion" si NO hay sesión
+                    if (href.endsWith('/php/logout.php')) {
+                        li.style.display = logged ? '' : 'none';
+                    }
+                    // Ocultar "Registrarse" si SÍ hay sesión
+                    if (href.endsWith('/php/forms/register.php')) {
+                        li.style.display = logged ? 'none' : '';
+                    }
+                });
+            });
+        } catch (e) {
+            // Si falla, no romper UI
+        }
+    }
+
+    updateAccountMenuVisibility();
+
+    // Interceptar click en "Mi cuenta" para mostrar aviso previo si no hay sesión
+    try {
+        const accountLinks = document.querySelectorAll('.dropdown-account-menu a[href$="MyAccount.php"]');
+        accountLinks.forEach(a => {
+            a.addEventListener('click', async (ev) => {
+                // Evitar navegación inmediata
+                ev.preventDefault();
+                const base = getPhpBase();
+                try {
+                    const res = await fetch(`${base}php/session-status.php`, { credentials: 'same-origin' });
+                    const data = await res.json();
+                    if (data && data.logged) {
+                        window.location.href = `${base}php/MyAccount.php`;
+                    } else {
+                        if (typeof showToast === 'function') {
+                            showToast('Debes iniciar sesión. Si no tienes cuenta, regístrate.');
+                        }
+                        setTimeout(() => {
+                            window.location.href = `${base}php/forms/login.php?info=login_required`;
+                        }, 1500);
+                    }
+                } catch (e) {
+                    // En caso de error, degradar a redirección normal
+                    window.location.href = `${base}php/forms/login.php?info=login_required`;
+                }
+            });
+        });
+    } catch {}
+
     updateFavCounter();
     updateCartCounter();  
     fetchProducts();
 });
+

@@ -3,7 +3,7 @@ session_start();
 require "forms/conection.php";
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: forms/login.php");
+    header("Location: forms/login.php?info=login_required");
     exit();
 }
 
@@ -105,4 +105,3 @@ $profilePic = $user['profile_image'] ? $user['profile_image'] : "default.png";
 
 </body>
 </html>
-

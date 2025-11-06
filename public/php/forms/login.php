@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "conection.php";
 
 $correoGuardado = isset($_COOKIE['recordar_usuario']) ? $_COOKIE['recordar_usuario'] : '';
@@ -19,7 +18,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (sqlsrv_has_rows($stmt)) {
         $user = sqlsrv_fetch_array($stmt, SQLSRV_FETCH_ASSOC);
-
+        // Iniciar sesión solo cuando las credenciales son correctas
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
         $_SESSION['user_id'] = $user['userID'];
         $_SESSION['email']   = $user['email'];
 
@@ -50,6 +52,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <form action="login.php" method="post">
     <div class="login-container">
+        <?php if (isset($_GET['info']) && $_GET['info'] === 'login_required'): ?>
+            <div class="info-box" style="background:#111;border:1px solid #8B008b;color:#fff;padding:10px 12px;border-radius:8px;margin-bottom:10px;">
+                <p>Debes iniciar sesión para continuar. Si no tienes una cuenta, por favor regístrate.</p>
+            </div>
+        <?php endif; ?>
 
         <label for="email">Email:</label>
 
@@ -110,4 +117,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <script src="../../assets/js/auth.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
-

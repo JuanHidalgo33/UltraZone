@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function(){
   if (popupLogin){
     popupLogin.style.display = 'flex';
     setTimeout(() => {
-      window.location.href = "../index.html";
+      window.location.href = "../../index.html";
     }, 2000);
   }
 

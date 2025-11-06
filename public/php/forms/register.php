@@ -1,5 +1,4 @@
 <?php
-session_start();
 require "conection.php";
 
 $errors = [];
@@ -96,4 +95,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </body>
 </html>
-
