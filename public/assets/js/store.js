@@ -8,6 +8,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const wishlistMenu = document.getElementById("wishlist-menu");
     const wishlistContainer = document.querySelector(".dropdown-wishlist");
     const wishlistToggle = document.querySelector(".dropdown-wishlist .whishlist");
+    // Toasts para feedback de usuario
+    const toastContainer = (() => {
+        const el = document.createElement("div");
+        el.className = "toast-container";
+        document.body.appendChild(el);
+        return el;
+    })();
+
+    function showToast(text) {
+        if (!toastContainer) return;
+        const div = document.createElement("div");
+        div.className = "toast-message";
+        div.textContent = text;
+        toastContainer.appendChild(div);
+        requestAnimationFrame(() => div.classList.add("show"));
+        setTimeout(() => {
+            div.classList.remove("show");
+            div.classList.add("hide");
+            div.addEventListener("transitionend", () => div.remove(), { once: true });
+        }, 2000);
+    }
 
     // Cache de detalles de favoritos (id -> {id,name,price,image})
     function getFavDetails() {
@@ -50,12 +71,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 delete details[id];
                 saveFavDetails(details);
             }
+            showToast("Eliminado de favoritos");
         } else {
             favs.push(id);
             heartBtn.classList.add("active");
             heartBtn.querySelector("i").className = "bi bi-heart-fill";
             heartBtn.classList.add("pop");
             setTimeout(() => heartBtn.classList.remove("pop"), 250);
+            showToast("Agregado a favoritos");
 
             // Capturar detalles visibles en la card para el dropdown
             const card = heartBtn.closest(".main-grid-item");
@@ -111,6 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         saveCart(cart);
         updateCartCounter();
+        showToast("Producto agregado al carrito");
         if (cartContainer && cartContainer.classList.contains("open")) {
             renderCartDropdown();
         }
@@ -140,8 +164,15 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>
         `).join("");
 
+        const total = items.reduce((sum, it) => sum + (it.price * it.qty), 0);
+        const format = (n) => `$${(n || 0).toLocaleString('es-CO')}`;
+
         const footer = `
             <div class="cart-menu-footer">
+                <div class="cart-total">
+                    <span>Total</span>
+                    <span class="cart-total-value">${format(total)}</span>
+                </div>
                 <button class="cart-pay-btn">Pagar</button>
                 <button class="cart-goto-btn">Ir al carrito de compras</button>
             </div>
@@ -297,6 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         favBtnInGrid.classList.remove("active");
                         favBtnInGrid.querySelector("i").className = "bi bi-heart";
                     }
+                    showToast("Eliminado de favoritos");
                     return;
                 }
 
@@ -354,6 +386,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     found.qty -= 1;
                     if (found.qty < 1) {
                         cart = cart.filter(p => p.id !== id);
+                        showToast("Producto eliminado del carrito");
                     }
                 }
 

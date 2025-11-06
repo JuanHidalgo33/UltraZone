@@ -398,6 +398,23 @@ a:hover {
     font-weight: 600;
 }
 
+.cart-total {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 8px 10px;
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 8px;
+    color: #fff;
+    flex: 1 1 100%;
+}
+
+.cart-total-value {
+    font-weight: 700;
+}
+
 .cart-pay-btn {
     background: #8B008b;
     color: #fff;
@@ -410,6 +427,34 @@ a:hover {
 
 .cart-goto-btn:hover { background: #2a002a; }
 .cart-pay-btn:hover { background: #6f0a6f; }
+
+/* Toast messages */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.toast-message {
+    background: #111;
+    color: #fff;
+    border: 1px solid #8B008b;
+    border-radius: 8px;
+    padding: 10px 14px;
+    box-shadow: 0 4px 12px rgba(0,0,0,.4);
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity .25s ease, transform .25s ease;
+    pointer-events: auto;
+}
+
+.toast-message.show { opacity: 1; transform: translateY(0); }
+.toast-message.hide { opacity: 0; transform: translateY(-10px); }
 
 .header-nav{
     display: flex;
