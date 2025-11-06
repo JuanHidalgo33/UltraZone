@@ -105,7 +105,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const cartCount = document.getElementById("cart-count");
     const cartMenu = document.getElementById("cart-menu");
     const cartContainer = document.querySelector(".dropdown-cartbox");
-    const cartToggle = document.querySelector("a.dropdown-cart");
+    const cartToggle = document.querySelector(".dropdown-cartbox .dropdown-cart");
 
     function getCart() {
         return JSON.parse(localStorage.getItem("cartItems") || "[]");

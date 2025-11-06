@@ -154,6 +154,16 @@ a:hover {
     cursor: pointer;
 }
 
+/* Neutraliza estilos de los toggles como botón */
+.dropdown-wishlist .whishlist,
+.dropdown-cartbox .dropdown-cart {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+}
+
 .dropdown-account-menu{
     display: none;
     position: absolute;
