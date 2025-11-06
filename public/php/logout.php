@@ -1,5 +1,5 @@
 <?php
-// Solo intenta cerrar sesión si realmente existe una
+// valida sesión iniciada y solo intenta cerrar sesión si realmente existe una
 $hadSession = isset($_COOKIE[session_name()]);
 $userWasLogged = false;
 
@@ -20,10 +20,10 @@ if ($hadSession) {
     session_destroy();
 }
 
-// Limpiar cookie de "recordar usuario" siempre al usar la ruta de logout
+// Limpiar cookie de "recordar usuario"
 setcookie('recordar_usuario', '', time() - 3600, '/');
 
-// Redirigir a login: solo mostrar mensaje de "logout exitoso" si realmente había sesión
+// Redirigir a login
 $qs = ($hadSession && $userWasLogged) ? '?logout=ok' : '';
 header('Location: forms/login.php' . $qs);
 exit();
